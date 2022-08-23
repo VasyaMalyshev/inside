@@ -1,0 +1,57 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+   <changeSet id="1.0.0" author="vasiliy.malyshev">
+       <sql>
+           create table users
+           (
+               id       bigserial
+                   primary key,
+               created  timestamp,
+               password varchar(255),
+               status   varchar(255),
+               updated  timestamp,
+               username varchar(255)
+           );
+       </sql>
+   </changeSet>
+    <changeSet id="1.0.1" author="vasiliy.malyshev">
+        <sql>
+            create table roles
+            (
+                id   bigserial
+                    primary key,
+                name varchar(255)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="1.0.2" author="vasiliy.malyshev">
+        <sql>
+            create table messages
+            (
+                id      bigserial
+                    primary key,
+                message varchar(255),
+                user_id bigint
+                    constraint fkpsmh6clh3csorw43eaodlqvkn
+                        references users
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="1.0.3" author="vasiliy.malyshev">
+        <sql>
+            create table user_roles
+            (
+                user_id bigint not null
+                    constraint fkhfh9dx7w3ubf1co1vdev94g3f
+                        references users,
+                role_id bigint not null
+                    constraint fkh8ciramu9cc9q3qcqiv4ue8a6
+                        references roles
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

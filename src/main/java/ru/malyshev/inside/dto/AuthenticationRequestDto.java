@@ -1,4 +1,4 @@
-package com.project.depoit.dto;
+package ru.malyshev.inside.dto;
 
 import lombok.Data;
 

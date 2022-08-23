@@ -1,17 +1,15 @@
-package com.project.depoit.rest;
+package ru.malyshev.inside.controller;
 
-import com.project.depoit.dto.AuthenticationRequestDto;
-import com.project.depoit.dto.TokenDto;
-import com.project.depoit.model.User;
-import com.project.depoit.security.jwt.JwtTokenProvider;
-import com.project.depoit.service.UserService;
+import ru.malyshev.inside.dto.AuthenticationRequestDto;
+import ru.malyshev.inside.dto.TokenDto;
+import ru.malyshev.inside.model.User;
+import ru.malyshev.inside.security.jwt.JwtTokenProvider;
+import ru.malyshev.inside.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +32,7 @@ public class AuthController {
             if (user == null) {
                 throw new UsernameNotFoundException("User not found");
             }
-
             TokenDto tokenDto = new TokenDto(jwtTokenProvider.createToken(username, user.getRoles()));
-
             return ResponseEntity.ok(tokenDto);
         } catch (Exception e) {
             return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
@@ -45,7 +41,6 @@ public class AuthController {
 
     @PostMapping(value = "addNewUser")
     public ResponseEntity<?> addNewUser(@RequestBody User user) {
-
         try {
             userService.register(user);
             return new ResponseEntity<>(user, HttpStatus.OK);

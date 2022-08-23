@@ -1,4 +1,4 @@
-package com.project.depoit.security.jwt;
+package ru.malyshev.inside.security.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 

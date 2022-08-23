@@ -1,9 +1,9 @@
-package com.project.depoit.security;
+package ru.malyshev.inside.security;
 
-import com.project.depoit.model.User;
-import com.project.depoit.security.jwt.JwtUser;
-import com.project.depoit.security.jwt.JwtUserFactory;
-import com.project.depoit.service.UserService;
+import ru.malyshev.inside.model.User;
+import ru.malyshev.inside.security.jwt.JwtUser;
+import ru.malyshev.inside.security.jwt.JwtUserFactory;
+import ru.malyshev.inside.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

@@ -1,0 +1,104 @@
+--------------Запрос на авторизацию пользователя-----------
+
+curl --location --request POST 'http://localhost:8075/authenticate' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "test",
+    "password": "test"
+}'
+
+Результат: 
+
+"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY2MTI0NDQzMiwiZXhwIjoxNjY0ODQ0NDMyfQ.by_NFD0YLFYsM_-I8DmI245jD5kPJ2bWkUYJ24jAcIk"
+
+------------------------------------------------------------
+
+
+-------------Запрос на добавление сообщения----------------- 
+
+curl --location --request POST 'http://localhost:8075/message' \
+--header 'Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY2MTI0NDQzMiwiZXhwIjoxNjY0ODQ0NDMyfQ.by_NFD0YLFYsM_-I8DmI245jD5kPJ2bWkUYJ24jAcIk' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "test",
+    "message": "Четырнадцатое сообщение"
+}'
+
+Результат : 
+
+ "id": 17,
+ "message": "Четырнадцатое сообщение"
+
+--------------------------------------------------------------
+
+-------------Запрос "History"----------------- 
+
+curl --location --request POST 'http://localhost:8075/message' \
+--header 'Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY2MTI0NDQzMiwiZXhwIjoxNjY0ODQ0NDMyfQ.by_NFD0YLFYsM_-I8DmI245jD5kPJ2bWkUYJ24jAcIk' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "test",
+    "message": "History 7"
+}'
+
+
+Результат: 
+[
+    {
+        "id": 11,
+        "message": "Одиннадцатое сообщение"
+    },
+    {
+        "id": 12,
+        "message": "Двенадцатое сообщение"
+    },
+    {
+        "id": 13,
+        "message": "Тринадцатое сообщение"
+    },
+    {
+        "id": 14,
+        "message": "Четырнадцатое сообщение"
+    },
+    {
+        "id": 15,
+        "message": "Четырнадцатое сообщение"
+    },
+    {
+        "id": 16,
+        "message": "Четырнадцатое сообщение"
+    },
+    {
+        "id": 17,
+        "message": "Четырнадцатое сообщение"
+    }
+]
+
+
+
+-----------Запрос на создание нового пользователя-------------
+
+curl --location --request POST 'http://localhost:8075/addNewUser' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username" : "test2",
+    "password" : "test2"
+}'
+
+Результат: 
+
+{
+    "id": 2,
+    "username": "test2",
+    "password": "$2a$10$OZuXUcXRa9PYNeB1MS8gNeNJeoOvER2ZMmPxiLykdbQVxdAG9jgqq",
+    "status": null,
+    "roles": [
+        {
+            "id": 1,
+            "name": "ROLE_USER"
+        }
+    ],
+    "messages": null,
+    "created": "2022-08-23",
+    "updated": "2022-08-23"
+}

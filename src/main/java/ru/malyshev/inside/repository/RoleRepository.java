@@ -1,6 +1,6 @@
-package com.project.depoit.repository;
+package ru.malyshev.inside.repository;
 
-import com.project.depoit.model.Role;
+import ru.malyshev.inside.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

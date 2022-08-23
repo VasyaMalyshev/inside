@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+
+  db:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/
+    environment:
+      POSTGRES_DB: inside
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 09po:L?>
+      #restart: always
+    networks:
+      - inside-localhost
+
+  back:
+    image: newaldan/inside-back
+    container_name: back
+    depends_on:
+      - db
+    #restart: always
+    ports:
+      - "8075:8075"
+    environment:
+      #DB_USER: postgres
+      #DB_PASSWORD: 09po:L?>
+      DB_HOST: db
+    networks:
+      - inside-localhost
+
+networks:
+  inside-localhost:
+    driver: bridge
+
+volumes:
+  db-data:

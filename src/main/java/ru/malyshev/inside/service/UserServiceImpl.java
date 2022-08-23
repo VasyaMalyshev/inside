@@ -23,11 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final static String PREFIX = "history";
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final MessageRepository messageRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -45,49 +42,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        List<User> result = userRepository.findAll();
-        log.info("IN getAll - {} users founded", result.size());
-        return result;
-    }
-
-    @Override
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
         log.info("IN findByUsername - {} username founded", result.getUsername());
         return result;
-    }
-
-    @Override
-    public User findById(Long id) {
-        User result = userRepository.findById(id).orElse(null);
-        if(result == null) {
-            log.warn("IN findById - no one find by id: {}", id);
-            return null;
-        }
-        log.info("IN findById - {} username founded", result.getUsername());
-        return result;
-    }
-
-    @Override
-    public void addMessage(MessageDto messageDto) {
-
-        User user = userRepository.findByUsername(messageDto.getUsername());
-        Message message = new Message();
-        message.setMessage(messageDto.getMessage());
-        messageRepository.save(message);
-        List<Message> messages = user.getMessages();
-        messages.add(message);
-        user.setMessages(messages);
-    }
-
-    @Override
-    public List<Message> getMessages(MessageDto messageDto) {
-        List<Message> userList = userRepository.findByUsername(messageDto.getUsername()).getMessages();
-        if (messageDto.getMessage().toLowerCase().contains(PREFIX)) {
-            String[] strings = messageDto.getMessage().split(" ");
-            return userList.subList(userList.size() - Integer.parseInt(strings[1]), userList.size());
-        }
-        return userList;
     }
 }
