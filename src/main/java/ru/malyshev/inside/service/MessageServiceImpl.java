@@ -27,8 +27,11 @@ public class MessageServiceImpl implements MessageService {
             List<Message> userList = userRepository.findByUsername(messageDto.getUsername()).getMessages();
             String[] strings = messageDto.getMessage().split(" ");
 
-            return userList.subList(userList.size() - Integer.parseInt(strings[1]), userList.size());
-
+            if (userList.size() - Integer.parseInt(strings[1]) > 0) {
+                return userList.subList(userList.size() - Integer.parseInt(strings[1]), userList.size());
+            } else {
+                return userList;
+            }
         } else {
             return List.of(saveMessage(messageDto));
         }
